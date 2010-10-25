@@ -9,7 +9,7 @@
     
     <uses-sdk android:minSdkVersion="7" />
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:name="com.intervigil.micdroid.LameApplication">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:name="com.intervigil.lame.LameApplication">
         <activity android:name=".Main"
                   android:label="@string/app_name">
             <intent-filter>

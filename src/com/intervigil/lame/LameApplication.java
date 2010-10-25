@@ -23,5 +23,9 @@ package com.intervigil.lame;
 import android.app.Application;
 
 public class LameApplication extends Application {
-
+	
+	@Override
+	public void onCreate() {
+		super.onCreate();
+	}
 }
