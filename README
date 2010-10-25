@@ -1,0 +1,15 @@
+This Android application is bascially a wrapper around the command-line LAME
+interface. It will encode/decode mp3 files. 
+This project is licensed under LGPLv2, for further licensing information see
+the LICENSE file.
+
+Build Instructions:
+Import project into Eclipse, since I have not created Ant makefiles for this
+project. For help building the native LAME library, please consult the INSTALL
+file.
+
+Known Issues:
+
+
+This project uses LAME from http://lame.sourceforge.net/
+by the LAME Project team.
