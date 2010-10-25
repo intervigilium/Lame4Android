@@ -27,9 +27,19 @@ public class Lame {
 		System.loadLibrary(LAME_LIB);
 	}
 	
-	public static native void encodeCBR();
+	public static native int initializeLame();
 	
-	public static native void encodeVBR();
+	public static native int encodeShortBuffer(short[] leftChannel, short[] rightChannel, 
+			int channelSamples, byte[] mp3Buffer, int bufferSize);
 	
-	public static native void decodeMp3();
+	public static native int encodeFlushBuffers(byte[] mp3Buffer, int bufferSize);
+	
+	public static native int closeLame();
+	
+	public static native int initDecoder();
+	
+	public static native int decodeMp3(byte[] mp3Buffer, int bufferSize, 
+			short[] leftChannel, short[] rightChannel);
+	
+	public static native int closeDecoder();
 }
