@@ -18,6 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:label="@string/set_preferences" android:name=".Preferences" />
         
         <meta-data android:value="a14cc4c75fa8625" android:name="ADMOB_PUBLISHER_ID" />
 
