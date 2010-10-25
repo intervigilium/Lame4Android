@@ -38,7 +38,7 @@
     		android:ellipsize="end"/>
     	
     	<ImageButton
-    		android:id="@+id/file_manager"
+    		android:id="@+id/select_input_file_btn"
     		android:src="@drawable/ic_launcher_folder"
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"/>
@@ -68,7 +68,7 @@
     		android:ellipsize="end"/>
     	
     	<ImageButton
-    		android:id="@+id/file_manager"
+    		android:id="@+id/select_output_file_btn"
     		android:src="@drawable/ic_launcher_folder"
     		android:layout_width="wrap_content"
     		android:layout_height="wrap_content"/>
