@@ -21,5 +21,6 @@
 package com.intervigil.lame;
 
 public class Constants {
-
+	public static final int REQUEST_CODE_OPEN_FILE = 12768;
+	public static final int REQUEST_CODE_SAVE_FILE = 12769;
 }

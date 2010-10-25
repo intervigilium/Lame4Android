@@ -6,6 +6,12 @@
     <string name="output_file_label">Select output file:</string>
     <string name="encode_btn_label">Encode MP3</string>
     
+    <string name="open_input_file_title">Select File</string>
+    <string name="open_input_file_btn_text">Select File</string>
+    
+    <string name="save_output_file_title">Select File</string>
+    <string name="save_output_file_btn_text">Select File</string>
+    
     <string name="set_preferences">Settings</string>
     
     <string name="prefs_cat_ads">Ad Preferences</string>
