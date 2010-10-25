@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, Main!</string>
-    <string name="app_name">Lame</string>
+    <string name="app_name">LAME4Android</string>
+    
+    <string name="input_file_label">Select input file:</string>
+    <string name="output_file_label">Select output file:</string>
+    <string name="encode_btn_label">Encode MP3</string>
 </resources>
