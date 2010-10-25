@@ -5,4 +5,12 @@
     <string name="input_file_label">Select input file:</string>
     <string name="output_file_label">Select output file:</string>
     <string name="encode_btn_label">Encode MP3</string>
+    
+    <string name="prefs_cat_ads">Ad Preferences</string>
+    <string name="prefs_enable_ads_key">enable_ads</string>
+    <string name="prefs_enable_ads">Enable Ads</string>
+    <string name="prefs_enable_ads_summary_on">Thanks for supporting the developer!</string>
+    <string name="prefs_enable_ads_summary_off">Please consider showing ads to support the developer!</string>
+    <string name="prefs_enable_ads_title">Enable Mobile Ads</string>
+    <string name="prefs_enable_ads_default">true</string>
 </resources>
