@@ -46,9 +46,28 @@ JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_encodeShortBuffer
   (JNIEnv *env, jclass class, jshortArray leftChannel, jshortArray rightChannel,
 		  jint channelSamples, jbyteArray mp3Buffer, jint bufferSize)
 {
-  // call lame_encode_buffer
+  int encoded_samples;
+  short *left_buf, *right_buf;
+  unsigned char *mp3_buf;
 
-  return 0;
+  left_buf = (*env)->GetShortArrayElements(env, leftChannel, NULL);
+  right_buf = (*env)->GetShortArrayElements(env, rightChannel, NULL);
+  mp3_buf = (*env)->GetByteArrayElements(env, mp3Buffer, NULL);
+
+  encoded_samples = lame_encode_buffer(lame_context, left_buf, right_buf, channelSamples, mp3_buf, bufferSize);
+
+  // mode 0 means free left/right buf, write changes back to left/rightChannel
+  (*env)->ReleaseShortArrayElements(env, leftChannel, left_buf, 0);
+  (*env)->ReleaseShortArrayElements(env, rightChannel, right_buf, 0);
+
+  if (encoded_samples < 0) {
+    // don't propagate changes back up if we failed
+    (*env)->ReleaseByteArrayElements(env, mp3Buffer, mp3_buf, JNI_ABORT);
+    return -1;
+  }
+
+  (*env)->ReleaseByteArrayElements(env, mp3Buffer, mp3_buf, 0);
+  return encoded_samples;
 }
 
 
