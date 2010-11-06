@@ -121,8 +121,29 @@ JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_decodeMp3
 {
   // call hip_decode_headers to get mp3 header data
   // call hip_decode to get left/right channel data from mp3 buffer
+  int samples_read;
+  short *left_buf, *right_buf;
+  unsigned char *mp3_buf;
 
-  return 0;
+  left_buf = (*env)->GetShortArrayElements(env, leftChannel, NULL);
+  right_buf = (*env)->GetShortArrayElements(env, rightChannel, NULL);
+  mp3_buf = (*env)->GetByteArrayElements(env, mp3Buffer, NULL);
+
+  samples_read = hip_decode(hip_context, mp3_buf, bufferSize, left_buf, right_buf);
+
+  (*env)->ReleaseByteArrayElements(env, mp3Buffer, mp3_buf, 0);
+
+  if (samples_read < 0) {
+    // some sort of error occurred, don't propagate changes to buffers
+	(*env)->ReleaseShortArrayElements(env, leftChannel, left_buf, JNI_ABORT);
+	(*env)->ReleaseShortArrayElements(env, rightChannel, right_buf, JNI_ABORT);
+    return samples_read;
+  }
+
+  (*env)->ReleaseShortArrayElements(env, leftChannel, left_buf, 0);
+  (*env)->ReleaseShortArrayElements(env, rightChannel, right_buf, 0);
+
+  return samples_read;
 }
 
 
