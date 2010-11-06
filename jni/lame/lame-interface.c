@@ -75,8 +75,20 @@ JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_encodeFlushBuffers
   (JNIEnv *env, jclass class, jbyteArray mp3Buffer, jint bufferSize)
 {
   // call lame_encode_flush when near the end of pcm buffer
+  int num_bytes;
+  unsigned char *mp3_buf;
 
-  return 0;
+  mp3_buf = (*env)->GetByteArrayElements(env, mp3Buffer, NULL);
+
+  num_bytes = lame_encode_flush(lame_context, mp3_buf, bufferSize);
+  if (num_bytes < 0) {
+    // some kind of error occurred, don't propagate changes to buffer
+	(*env)->ReleaseByteArrayElements(env, mp3Buffer, mp3_buf, JNI_ABORT);
+    return num_bytes;
+  }
+
+  (*env)->ReleaseByteArrayElements(env, mp3Buffer, mp3_buf, 0);
+  return num_bytes;
 }
 
 
