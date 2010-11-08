@@ -42,6 +42,30 @@ JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_initializeLame
 }
 
 
+JNIEXPORT void JNICALL Java_com_intervigil_lame_Lame_setLamePreset
+  (JNIEnv *env, jclass class, jint preset)
+{
+  // set to vbr_mtrh for fast, vbr_rh for slower
+  switch (preset) {
+    case LAME_PRESET_MEDIUM:
+      lame_set_VBR_q(lame_context, 4);
+      lame_set_VBR(lame_context, vbr_mtrh);
+      break;
+    case LAME_PRESET_STANDARD:
+      lame_set_VBR_q(lame_context, 2);
+      lame_set_VBR(lame_context, vbr_mtrh);
+      break;
+    case LAME_PRESET_EXTREME:
+      lame_set_VBR_q(lame_context, 0);
+      lame_set_VBR(lame_context, vbr_mtrh);
+      break;
+    case LAME_PRESET_DEFAULT:
+    default:
+      break;
+  }
+}
+
+
 JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_encodeShortBuffer
   (JNIEnv *env, jclass class, jshortArray leftChannel, jshortArray rightChannel,
 		  jint channelSamples, jbyteArray mp3Buffer, jint bufferSize)

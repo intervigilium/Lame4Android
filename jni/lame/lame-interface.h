@@ -2,6 +2,11 @@
 #include <jni.h>
 /* Header for class com_intervigil_lame_Lame */
 
+#define LAME_PRESET_DEFAULT 0
+#define LAME_PRESET_MEDIUM 1
+#define LAME_PRESET_STANDARD 2
+#define LAME_PRESET_EXTREME 3
+
 #ifndef _Included_com_intervigil_lame_Lame
 #define _Included_com_intervigil_lame_Lame
 #ifdef __cplusplus
@@ -14,6 +19,14 @@ extern "C" {
  */
 JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_initializeLame
   (JNIEnv *, jclass);
+
+/*
+ * Class:     com_intervigil_lame_Lame
+ * Method:    setLamePreset
+ * Signature: (I)V
+ */
+JNIEXPORT void JNICALL Java_com_intervigil_lame_Lame_setLamePreset
+  (JNIEnv *, jclass, jint);
 
 /*
  * Class:     com_intervigil_lame_Lame

@@ -21,25 +21,32 @@
 package com.intervigil.lame;
 
 public class Lame {
+	public static final int LAME_PRESET_DEFAULT = 0;
+	public static final int LAME_PRESET_MEDIUM = 1;
+	public static final int LAME_PRESET_STANDARD = 2;
+	public static final int LAME_PRESET_EXTREME = 3;
+
 	private static final String LAME_LIB = "lame";
-	
+
 	static {
 		System.loadLibrary(LAME_LIB);
 	}
-	
+
 	public static native int initializeLame();
-	
+
+	public static native void setLamePreset(int preset);
+
 	public static native int encodeShortBuffer(short[] leftChannel, short[] rightChannel, 
 			int channelSamples, byte[] mp3Buffer, int bufferSize);
-	
+
 	public static native int encodeFlushBuffers(byte[] mp3Buffer, int bufferSize);
-	
+
 	public static native int closeLame();
-	
+
 	public static native int initDecoder();
-	
+
 	public static native int decodeMp3(byte[] mp3Buffer, int bufferSize, 
 			short[] leftChannel, short[] rightChannel);
-	
+
 	public static native int closeDecoder();
 }
