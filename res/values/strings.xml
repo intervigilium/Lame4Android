@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">LAME4Android</string>
-    
+
     <string name="input_file_label">Select input file:</string>
     <string name="output_file_label">Select output file:</string>
     <string name="encode_btn_label">Encode MP3</string>
-    
+
     <string name="open_input_file_title">Select File to Encode</string>
     <string name="open_input_file_btn_text">Select File</string>
-    
+
     <string name="save_output_file_title">Select File to Save As</string>
     <string name="save_output_file_btn_text">Save As</string>
-    
+
+    <string name="lame_encode_start_msg">Encoding file to MP3</string>
+    <string name="lame_encode_end_msg">File encoded as MP3!</string>
+
     <string name="set_preferences">Settings</string>
-    
+
     <string name="prefs_cat_ads">Ad Preferences</string>
     <string name="prefs_enable_ads_key">enable_ads</string>
     <string name="prefs_enable_ads">Enable Ads</string>

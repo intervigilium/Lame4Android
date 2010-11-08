@@ -20,11 +20,19 @@
 
 package com.intervigil.lame;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,6 +54,7 @@ public class Main extends Activity implements OnClickListener {
 	private AdView ad;
 	private EditText inputFilename;
 	private EditText outputFilename;
+	private LameEncodeTask encodeTask;
 	
     /** Called when the activity is first created. */
     @Override
@@ -163,10 +172,17 @@ public class Main extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Toast.makeText(Main.this, String.format("got click from %d", v.getId()), Toast.LENGTH_SHORT);
 		switch (v.getId()) {
 			case R.id.encode_btn:
-				// start async task to read/encode/write mp3
+				if (inputFilename.getText().length() > 0 && outputFilename.getText().length() > 0) {
+					String[] encodeParams = new String[] { 
+							inputFilename.getText().toString(), 
+							outputFilename.getText().toString()
+					};
+					new LameEncodeTask().execute(encodeParams);
+				} else {
+					// need input/output files
+				}
 				break;
 			case R.id.select_input_file_btn:
 				openFile(inputFilename.getText().toString());
@@ -216,6 +232,73 @@ public class Main extends Activity implements OnClickListener {
 		} catch (ActivityNotFoundException e) {
 			// No compatible file manager was found.
 			
+		}
+	}
+	
+	/**
+	 * Error handler for the encoder/encode async task
+	 */
+	private Handler encoderErrorHandler = new Handler() {	
+		@Override
+    	public void handleMessage(Message msg) {
+			
+			
+		}
+	};
+	
+	/**
+	 * Process LAME encode task
+	 */
+	private class LameEncodeTask extends AsyncTask<String, Void, Void> {
+		private File input;
+		private File output;
+		private Encoder lame;
+		private ProgressDialog spinner;
+		
+		public LameEncodeTask() {
+			spinner = new ProgressDialog(Main.this);
+			spinner.setCancelable(false);
+		}
+		
+		@Override
+		protected void onPreExecute() {
+			spinner.setMessage(getString(R.string.lame_encode_start_msg));
+			spinner.show();
+		}
+		
+		@Override
+		protected Void doInBackground(String... params) {
+			input = new File(params[0]);
+			output = new File(params[1]);
+			
+			lame = new Encoder(input, output);
+			// initialization
+			try {
+				lame.initialize();
+				lame.setPreset(Lame.LAME_PRESET_STANDARD);
+			} catch (FileNotFoundException e) {
+				// couldn't create our in/out files
+				lame.cleanup();
+			} catch (IOException e) {
+				// input is not a wave file
+				lame.cleanup();
+			}
+			// encoding
+			try {
+				lame.encode();
+				lame.cleanup();
+			} catch (IOException e) {
+				// failed to read pcm data/failed to write mp3 data
+				lame.cleanup();
+			}
+
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute(Void unused) {
+			spinner.dismiss();
+			Toast.makeText(Main.this, R.string.lame_encode_end_msg, Toast.LENGTH_SHORT).show();
 		}
 	}
 }
