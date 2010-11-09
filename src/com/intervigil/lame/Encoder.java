@@ -59,18 +59,21 @@ public class Encoder {
 		if (waveReader != null && out != null) {
 			short[] pcmBuf = new short[WAVE_CHUNK_SIZE];
 			byte[] mp3Buf = new byte[OUTPUT_STREAM_BUFFER];
+			int samplesRead;
+			int bytesEncoded;
 			
 			while (true) {
-				int samplesRead = waveReader.readShort(pcmBuf, WAVE_CHUNK_SIZE);
+				samplesRead = waveReader.readShort(pcmBuf, WAVE_CHUNK_SIZE);
 				if (samplesRead > 0) {
-					Lame.encodeShortBuffer(pcmBuf, pcmBuf, samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
-					out.write(mp3Buf);
+					bytesEncoded = Lame.encodeShortBuffer(pcmBuf, pcmBuf, samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
+					out.write(mp3Buf, 0, bytesEncoded);
 				} else {
 					break;
 				}
 			}
-			Lame.encodeFlushBuffers(mp3Buf, mp3Buf.length);
-			// need to write Xing VBR/INFO tag to mp3 file here eventually
+			bytesEncoded = Lame.encodeFlushBuffers(mp3Buf, mp3Buf.length);
+			out.write(mp3Buf, 0, bytesEncoded);
+			// TODO: write Xing VBR/INFO tag to mp3 file here
 			out.flush();
 		}
 	}
