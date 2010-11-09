@@ -1,4 +1,4 @@
 TODO:
 
 Make an icon for the app from the LAME site icon
-Call through to LAME library to encode file
+Handle screen rotation
