@@ -54,7 +54,6 @@ public class Main extends Activity implements OnClickListener {
 	private AdView ad;
 	private EditText inputFilename;
 	private EditText outputFilename;
-	private LameEncodeTask encodeTask;
 	
     /** Called when the activity is first created. */
     @Override
@@ -278,10 +277,16 @@ public class Main extends Activity implements OnClickListener {
 				lame.setPreset(Lame.LAME_PRESET_STANDARD);
 			} catch (FileNotFoundException e) {
 				// couldn't create our in/out files
+				e.printStackTrace();
 				lame.cleanup();
+				lame = null;
+				return null;
 			} catch (IOException e) {
 				// input is not a wave file
+				e.printStackTrace();
 				lame.cleanup();
+				lame = null;
+				return null;
 			}
 			// encoding
 			try {
@@ -289,7 +294,9 @@ public class Main extends Activity implements OnClickListener {
 				lame.cleanup();
 			} catch (IOException e) {
 				// failed to read pcm data/failed to write mp3 data
+				e.printStackTrace();
 				lame.cleanup();
+				lame = null;
 			}
 
 			return null;
