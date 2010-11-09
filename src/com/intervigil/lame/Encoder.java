@@ -46,7 +46,7 @@ public class Encoder {
 		waveReader = new WaveReader(inFile);
 		waveReader.openWave();
 		out = new BufferedOutputStream(new FileOutputStream(outFile), OUTPUT_STREAM_BUFFER);
-		Lame.initializeLame(waveReader.getSampleRate(), 2);
+		Lame.initializeLame(waveReader.getSampleRate(), Constants.LAME_CONFIG_STEREO);
 	}
 	
 	public void setPreset(int preset) {
