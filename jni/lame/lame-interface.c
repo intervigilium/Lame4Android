@@ -37,7 +37,9 @@ JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_initializeLame
     if (lame_context) {
       lame_set_in_samplerate(lame_context, sampleRate);
       lame_set_num_channels(lame_context, numChannels);
-      return lame_init_params(lame_context);
+      int ret = lame_init_params(lame_context);
+      __android_log_print(ANDROID_LOG_DEBUG, "liblame.so", "initialized lame with code %d", ret);
+      return ret;
     }
   }
   return -1;
@@ -122,7 +124,10 @@ JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_closeLame
   (JNIEnv *env, jclass class)
 {
   if (lame_context) {
-    return lame_close(lame_context);
+    int ret = lame_close(lame_context);
+    lame_context = NULL;
+    __android_log_print(ANDROID_LOG_DEBUG, "liblame.so", "freed lame with code %d", ret);
+    return ret;
   }
   return -1;
 }
