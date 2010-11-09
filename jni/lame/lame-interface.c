@@ -182,7 +182,9 @@ JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_closeDecoder
   (JNIEnv *env, jclass class)
 {
   if (hip_context) {
-	return hip_decode_exit(hip_context);
+    int ret = hip_decode_exit(hip_context);
+    hip_context = NULL;
+	return ret;
   }
   return -1;
 }
