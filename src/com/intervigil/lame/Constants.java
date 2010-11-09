@@ -25,4 +25,8 @@ public class Constants {
 	public static final int REQUEST_CODE_SAVE_FILE = 12769;
 
 	public static final int LAME_CONFIG_STEREO = 2;
+	
+	public static final int LAME_ERROR_FILE_CREATE = -3;
+	public static final int LAME_ERROR_FILE_TYPE = -4;
+	public static final int LAME_ERROR_ENCODE_IO = -5;
 }

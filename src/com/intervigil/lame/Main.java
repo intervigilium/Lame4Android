@@ -31,8 +31,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,6 +43,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.admob.android.ads.AdView;
+import com.intervigil.lame.helper.DialogHelper;
 import com.intervigil.lame.helper.PreferenceHelper;
 import com.intervigil.lame.intents.FileManagerIntents;
 
@@ -235,17 +234,6 @@ public class Main extends Activity implements OnClickListener {
 	}
 	
 	/**
-	 * Error handler for the encoder/encode async task
-	 */
-	private Handler encoderErrorHandler = new Handler() {	
-		@Override
-    	public void handleMessage(Message msg) {
-			
-			
-		}
-	};
-	
-	/**
 	 * Process LAME encode task
 	 */
 	private class LameEncodeTask extends AsyncTask<String, Void, Void> {
@@ -253,10 +241,12 @@ public class Main extends Activity implements OnClickListener {
 		private File output;
 		private Encoder lame;
 		private ProgressDialog spinner;
+		private int errorCode;
 		
 		public LameEncodeTask() {
 			spinner = new ProgressDialog(Main.this);
 			spinner.setCancelable(false);
+			errorCode = 0;
 		}
 		
 		@Override
@@ -277,35 +267,44 @@ public class Main extends Activity implements OnClickListener {
 				lame.setPreset(Lame.LAME_PRESET_STANDARD);
 			} catch (FileNotFoundException e) {
 				// couldn't create our in/out files
-				e.printStackTrace();
-				lame.cleanup();
-				lame = null;
-				return null;
+				errorCode = Constants.LAME_ERROR_FILE_CREATE;
 			} catch (IOException e) {
 				// input is not a wave file
-				e.printStackTrace();
-				lame.cleanup();
-				lame = null;
-				return null;
+				errorCode = Constants.LAME_ERROR_FILE_TYPE;
 			}
-			// encoding
-			try {
-				lame.encode();
-				lame.cleanup();
-			} catch (IOException e) {
-				// failed to read pcm data/failed to write mp3 data
-				e.printStackTrace();
-				lame.cleanup();
-				lame = null;
+			if (errorCode == 0) {
+				// encoding
+				try {
+					lame.encode();
+					lame.cleanup();
+				} catch (IOException e) {
+					// failed to read pcm data/failed to write mp3 data
+					errorCode = Constants.LAME_ERROR_ENCODE_IO;
+				}
 			}
 
+			lame.cleanup();
 			return null;
 		}
 		
 		@Override
 		protected void onPostExecute(Void unused) {
 			spinner.dismiss();
-			Toast.makeText(Main.this, R.string.lame_encode_end_msg, Toast.LENGTH_SHORT).show();
+			switch (errorCode) {
+				case 0:
+					Toast.makeText(Main.this, R.string.lame_encode_end_msg, Toast.LENGTH_SHORT).show();
+					break;
+				case Constants.LAME_ERROR_FILE_CREATE:
+					DialogHelper.showWarning(Main.this, R.string.lame_encode_error_file_create_title, R.string.lame_encode_error_file_create_msg);
+					break;
+				case Constants.LAME_ERROR_FILE_TYPE:
+					DialogHelper.showWarning(Main.this, R.string.lame_encode_error_file_type_title, R.string.lame_encode_error_file_type_msg);
+					break;
+				case Constants.LAME_ERROR_ENCODE_IO:
+					DialogHelper.showWarning(Main.this, R.string.lame_encode_error_encode_io_title, R.string.lame_encode_error_encode_io_msg);
+					break;
+				default:
+			}
 		}
 	}
 }
