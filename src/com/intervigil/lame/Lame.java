@@ -32,7 +32,7 @@ public class Lame {
 		System.loadLibrary(LAME_LIB);
 	}
 
-	public static native int initializeLame();
+	public static native int initializeLame(int sampleRate, int numChannels);
 
 	public static native void setLamePreset(int preset);
 

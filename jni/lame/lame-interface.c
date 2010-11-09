@@ -30,11 +30,13 @@ static lame_global_flags *lame_context;
 static hip_t hip_context;
 
 JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_initializeLame
-  (JNIEnv *env, jclass class)
+  (JNIEnv *env, jclass class, jint sampleRate, jint numChannels)
 {
   if (!lame_context) {
     lame_context = lame_init();
     if (lame_context) {
+      lame_set_in_samplerate(lame_context, sampleRate);
+      lame_set_num_channels(lame_context, numChannels);
       return lame_init_params(lame_context);
     }
   }

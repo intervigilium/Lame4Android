@@ -15,10 +15,10 @@ extern "C" {
 /*
  * Class:     com_intervigil_lame_Lame
  * Method:    initializeLame
- * Signature: ()I
+ * Signature: (II)I
  */
 JNIEXPORT jint JNICALL Java_com_intervigil_lame_Lame_initializeLame
-  (JNIEnv *, jclass);
+  (JNIEnv *, jclass, jint, jint);
 
 /*
  * Class:     com_intervigil_lame_Lame
