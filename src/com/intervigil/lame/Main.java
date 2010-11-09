@@ -259,9 +259,9 @@ public class Main extends Activity implements OnClickListener {
 		protected Void doInBackground(String... params) {
 			input = new File(params[0]);
 			output = new File(params[1]);
-			
 			lame = new Encoder(input, output);
-			// initialization
+
+
 			try {
 				lame.initialize();
 				lame.setPreset(Lame.LAME_PRESET_STANDARD);
@@ -273,7 +273,6 @@ public class Main extends Activity implements OnClickListener {
 				errorCode = Constants.LAME_ERROR_FILE_TYPE;
 			}
 			if (errorCode == 0) {
-				// encoding
 				try {
 					lame.encode();
 					lame.cleanup();
