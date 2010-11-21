@@ -281,7 +281,6 @@ public class Main extends Activity implements OnClickListener {
             if (errorCode == 0) {
                 try {
                     lame.encode();
-                    lame.cleanup();
                 } catch (IOException e) {
                     // failed to read pcm data/failed to write mp3 data
                     errorCode = Constants.LAME_ERROR_ENCODE_IO;
