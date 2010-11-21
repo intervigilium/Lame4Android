@@ -25,41 +25,41 @@ import android.preference.PreferenceActivity;
 import android.util.Log;
 
 public class Preferences extends PreferenceActivity {
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         // Load the preferences from an XML resource.
         addPreferencesFromResource(R.xml.preferences);
     }
-    
+
     @Override
     protected void onStart() {
         Log.i("Preferences", "onStart()");
         super.onStart();
     }
-    
+
     @Override
     protected void onResume() {
-    	Log.i("Preferences", "onResume()");
+        Log.i("Preferences", "onResume()");
         super.onResume();
     }
 
     @Override
     protected void onPause() {
-    	Log.i("Preferences", "onPause()");
-        super.onPause(); 
+        Log.i("Preferences", "onPause()");
+        super.onPause();
     }
-    
+
     @Override
     protected void onStop() {
-    	Log.i("Preferences", "onStop()");
-    	super.onStop();
+        Log.i("Preferences", "onStop()");
+        super.onStop();
     }
-    
+
     @Override
     protected void onDestroy() {
-    	Log.i("Preferences", "onDestroy()");
-    	super.onStop();
+        Log.i("Preferences", "onDestroy()");
+        super.onStop();
     }
 }

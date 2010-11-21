@@ -2,80 +2,50 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:admobsdk="http://schemas.android.com/apk/res/com.intervigil.lame"
-	android:id="@+id/main_layout"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    
-    <com.admob.android.ads.AdView
-			android:id="@+id/main_adview" 
-			android:layout_width="fill_parent" 
-			android:layout_height="wrap_content"
-			admobsdk:backgroundColor="#000000"
-			admobsdk:primaryTextColor="#FFFFFF"
-			admobsdk:keywords="android music mp3 tunes" />
-    
-    <TextView
-    		android:id="@+id/input_label"
-    		android:text="@string/input_file_label"
-    		android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"/>
-    		
-    <LinearLayout
-    	android:id="@+id/input_layout"
-    	android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content">
+	android:id="@+id/main_layout" android:orientation="vertical"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
 
-    	<EditText
-    		android:id="@+id/input_file"
-    		android:layout_width="fill_parent"
-    		android:layout_height="fill_parent"
-    		android:layout_weight="1"
-    		android:maxLines="1"
-    		android:scrollHorizontally="true" 
-    		android:ellipsize="end"/>
-    	
-    	<ImageButton
-    		android:id="@+id/select_input_file_btn"
-    		android:src="@drawable/ic_launcher_folder"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"/>
-    </LinearLayout>
-    
-    
-    <TextView
-    		android:id="@+id/output_label"
-    		android:text="@string/output_file_label"
-    		android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"/>
-    		
-    <LinearLayout
-    	android:id="@+id/output_layout"
-    	android:orientation="horizontal"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content">
+	<com.admob.android.ads.AdView android:id="@+id/main_adview"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		admobsdk:backgroundColor="#000000" admobsdk:primaryTextColor="#FFFFFF"
+		admobsdk:keywords="android music mp3 tunes" />
 
-    	<EditText
-    		android:id="@+id/output_file"
-    		android:layout_width="fill_parent"
-    		android:layout_height="fill_parent"
-    		android:layout_weight="1"
-    		android:maxLines="1"
-    		android:scrollHorizontally="true" 
-    		android:ellipsize="end"/>
-    	
-    	<ImageButton
-    		android:id="@+id/select_output_file_btn"
-    		android:src="@drawable/ic_launcher_folder"
-    		android:layout_width="wrap_content"
-    		android:layout_height="wrap_content"/>
-    </LinearLayout>
-    
-    <Button
-    	android:id="@+id/encode_btn"
-    	android:layout_gravity="center"
-    	android:text="@string/encode_btn_label"
-    	android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"/>
+	<TextView android:id="@+id/input_label" android:text="@string/input_file_label"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" />
+
+	<LinearLayout android:id="@+id/input_layout"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<EditText android:id="@+id/input_file" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:layout_weight="1"
+			android:maxLines="1" android:scrollHorizontally="true"
+			android:ellipsize="end" />
+
+		<ImageButton android:id="@+id/select_input_file_btn"
+			android:src="@drawable/ic_launcher_folder" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+
+
+	<TextView android:id="@+id/output_label" android:text="@string/output_file_label"
+		android:layout_width="fill_parent" android:layout_height="wrap_content" />
+
+	<LinearLayout android:id="@+id/output_layout"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+
+		<EditText android:id="@+id/output_file" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:layout_weight="1"
+			android:maxLines="1" android:scrollHorizontally="true"
+			android:ellipsize="end" />
+
+		<ImageButton android:id="@+id/select_output_file_btn"
+			android:src="@drawable/ic_launcher_folder" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
+
+	<Button android:id="@+id/encode_btn" android:layout_gravity="center"
+		android:text="@string/encode_btn_label" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
 </LinearLayout>

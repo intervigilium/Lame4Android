@@ -21,32 +21,33 @@
 package com.intervigil.lame;
 
 public class Lame {
-	public static final int LAME_PRESET_DEFAULT = 0;
-	public static final int LAME_PRESET_MEDIUM = 1;
-	public static final int LAME_PRESET_STANDARD = 2;
-	public static final int LAME_PRESET_EXTREME = 3;
+    public static final int LAME_PRESET_DEFAULT = 0;
+    public static final int LAME_PRESET_MEDIUM = 1;
+    public static final int LAME_PRESET_STANDARD = 2;
+    public static final int LAME_PRESET_EXTREME = 3;
 
-	private static final String LAME_LIB = "lame";
+    private static final String LAME_LIB = "lame";
 
-	static {
-		System.loadLibrary(LAME_LIB);
-	}
+    static {
+        System.loadLibrary(LAME_LIB);
+    }
 
-	public static native int initializeLame(int sampleRate, int numChannels);
+    public static native int initializeLame(int sampleRate, int numChannels);
 
-	public static native void setLamePreset(int preset);
+    public static native void setLamePreset(int preset);
 
-	public static native int encodeShortBuffer(short[] leftChannel, short[] rightChannel, 
-			int channelSamples, byte[] mp3Buffer, int bufferSize);
+    public static native int encodeShortBuffer(short[] leftChannel,
+            short[] rightChannel, int channelSamples, byte[] mp3Buffer,
+            int bufferSize);
 
-	public static native int encodeFlushBuffers(byte[] mp3Buffer, int bufferSize);
+    public static native int encodeFlushBuffers(byte[] mp3Buffer, int bufferSize);
 
-	public static native int closeLame();
+    public static native int closeLame();
 
-	public static native int initDecoder();
+    public static native int initDecoder();
 
-	public static native int decodeMp3(byte[] mp3Buffer, int bufferSize, 
-			short[] leftChannel, short[] rightChannel);
+    public static native int decodeMp3(byte[] mp3Buffer, int bufferSize,
+            short[] leftChannel, short[] rightChannel);
 
-	public static native int closeDecoder();
+    public static native int closeDecoder();
 }
