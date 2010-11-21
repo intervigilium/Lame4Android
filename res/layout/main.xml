@@ -45,7 +45,28 @@
 			android:layout_height="wrap_content" />
 	</LinearLayout>
 
-	<Button android:id="@+id/encode_btn" android:layout_gravity="center"
-		android:text="@string/encode_btn_label" android:layout_width="wrap_content"
+	<ToggleButton android:id="@+id/mode_btn" android:textOn="@string/mode_btn_on_label"
+		android:textOff="@string/mode_btn_off_label" android:layout_gravity="center"
+		android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+	<TextView android:id="@+id/lame_quality_text" android:text="@string/lame_quality_label"
+		android:layout_gravity="center" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
+
+	<RadioGroup android:id="@+id/quality_radios" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal">
+
+		<RadioButton android:id="@+id/radio_medium" android:text="@string/radio_medium_label"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+		<RadioButton android:id="@+id/radio_standard" android:text="@string/radio_standard_label"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+
+		<RadioButton android:id="@+id/radio_extreme" android:text="@string/radio_extreme_label"
+			android:layout_width="wrap_content" android:layout_height="wrap_content" />
+	</RadioGroup>
+
+	<Button android:id="@+id/encode_btn" android:text="@string/encode_btn_label"
+		android:layout_gravity="center" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" />
 </LinearLayout>

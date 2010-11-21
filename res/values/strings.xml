@@ -12,6 +12,15 @@
 	<string name="save_output_file_title">Select File to Save As</string>
 	<string name="save_output_file_btn_text">Save As</string>
 
+	<string name="mode_btn_on_label">Encode Mode</string>
+	<string name="mode_btn_off_label">Decode Mode</string>
+
+	<string name="lame_quality_label">LAME Encode Preset</string>
+
+	<string name="radio_medium_label">Medium</string>
+	<string name="radio_standard_label">Standard</string>
+	<string name="radio_extreme_label">Extreme</string>
+
 	<string name="lame_encode_start_msg">Encoding file to MP3</string>
 	<string name="lame_encode_end_msg">File encoded as MP3!</string>
 
