@@ -38,8 +38,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ToggleButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.admob.android.ads.AdView;
@@ -53,12 +55,18 @@ public class Main extends Activity implements OnClickListener {
     private AdView ad;
     private EditText inputFilename;
     private EditText outputFilename;
+    private Button encodeButton;
+    private Boolean isEncodeMode;
+    private int lamePreset;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        lamePreset = Lame.LAME_PRESET_DEFAULT;
+        isEncodeMode = false;
 
         showAds = PreferenceHelper.getShowAds(Main.this);
         ad = (AdView) findViewById(R.id.main_adview);
@@ -67,11 +75,24 @@ public class Main extends Activity implements OnClickListener {
         inputFilename = (EditText) findViewById(R.id.input_file);
         outputFilename = (EditText) findViewById(R.id.output_file);
 
-        ((Button) findViewById(R.id.encode_btn)).setOnClickListener(this);
+        encodeButton = (Button) findViewById(R.id.encode_btn);
+        encodeButton.setOnClickListener(this);
+
         ((ImageButton) findViewById(R.id.select_input_file_btn))
                 .setOnClickListener(this);
         ((ImageButton) findViewById(R.id.select_output_file_btn))
                 .setOnClickListener(this);
+        ((ToggleButton) findViewById(R.id.mode_btn))
+                .setOnClickListener(this);
+        ((RadioButton) findViewById(R.id.radio_medium))
+                .setOnClickListener(this);
+        ((RadioButton) findViewById(R.id.radio_standard))
+                .setOnClickListener(this);
+        ((RadioButton) findViewById(R.id.radio_extreme))
+                .setOnClickListener(this);
+        ((RadioButton) findViewById(R.id.radio_standard))
+                .setChecked(true);
+        setRadioGroupEnabled(false);
     }
 
     @Override
@@ -174,6 +195,24 @@ public class Main extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+        case R.id.mode_btn:
+            isEncodeMode = !isEncodeMode;
+            setRadioGroupEnabled(isEncodeMode);
+            if (isEncodeMode) {
+                encodeButton.setText(R.string.encode_btn_label);
+            } else {
+                encodeButton.setText(R.string.decode_btn_label);
+            }
+            break;
+        case R.id.radio_medium:
+            lamePreset = Lame.LAME_PRESET_MEDIUM;
+            break;
+        case R.id.radio_standard:
+            lamePreset = Lame.LAME_PRESET_STANDARD;
+            break;
+        case R.id.radio_extreme:
+            lamePreset = Lame.LAME_PRESET_EXTREME;
+            break;
         case R.id.encode_btn:
             if (inputFilename.getText().length() > 0
                     && outputFilename.getText().length() > 0) {
@@ -193,6 +232,15 @@ public class Main extends Activity implements OnClickListener {
             break;
         }
 
+    }
+
+    /**
+     * Set RadioGroup enabled/disabled
+     */
+    private void setRadioGroupEnabled(Boolean isEnabled) {
+        ((RadioButton) findViewById(R.id.radio_medium)).setEnabled(isEnabled);
+        ((RadioButton) findViewById(R.id.radio_standard)).setEnabled(isEnabled);
+        ((RadioButton) findViewById(R.id.radio_extreme)).setEnabled(isEnabled);
     }
 
     /**
@@ -270,7 +318,7 @@ public class Main extends Activity implements OnClickListener {
 
             try {
                 lame.initialize();
-                lame.setPreset(Lame.LAME_PRESET_STANDARD);
+                lame.setPreset(lamePreset);
             } catch (FileNotFoundException e) {
                 // couldn't create our in/out files
                 errorCode = Constants.LAME_ERROR_FILE_CREATE;

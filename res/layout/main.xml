@@ -66,7 +66,7 @@
 			android:layout_width="wrap_content" android:layout_height="wrap_content" />
 	</RadioGroup>
 
-	<Button android:id="@+id/encode_btn" android:text="@string/encode_btn_label"
+	<Button android:id="@+id/encode_btn" android:text="@string/decode_btn_label"
 		android:layout_gravity="center" android:layout_width="wrap_content"
 		android:layout_height="wrap_content" />
 </LinearLayout>

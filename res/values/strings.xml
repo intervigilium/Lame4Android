@@ -4,7 +4,8 @@
 
 	<string name="input_file_label">Select input file:</string>
 	<string name="output_file_label">Select output file:</string>
-	<string name="encode_btn_label">Encode MP3</string>
+	<string name="encode_btn_label">Encode to MP3</string>
+	<string name="decode_btn_label">Decode to Wave</string>
 
 	<string name="open_input_file_title">Select File to Encode</string>
 	<string name="open_input_file_btn_text">Select File</string>
