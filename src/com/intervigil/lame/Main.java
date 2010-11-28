@@ -262,6 +262,11 @@ public class Main extends Activity implements OnClickListener {
             startActivityForResult(intent, Constants.REQUEST_CODE_OPEN_FILE);
         } catch (ActivityNotFoundException e) {
             // No compatible file manager was found.
+            Intent marketSearchIntent = new Intent(Intent.ACTION_SEARCH);
+            marketSearchIntent.setPackage("com.android.vending");
+            marketSearchIntent.putExtra("query", "pname:org.openintents.filemanager");
+            marketSearchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(marketSearchIntent);
         }
     }
 
