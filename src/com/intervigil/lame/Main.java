@@ -221,7 +221,7 @@ public class Main extends Activity implements OnClickListener {
                         outputFilename.getText().toString() };
                 new LameEncodeTask().execute(encodeParams);
             } else {
-                // need input/output files
+                DialogHelper.showWarning(Main.this, R.string.no_encode_files_title, R.string.no_encode_files_warning);
             }
             break;
         case R.id.select_input_file_btn:
