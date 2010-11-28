@@ -214,7 +214,10 @@ public class Main extends Activity implements OnClickListener {
             lamePreset = Lame.LAME_PRESET_EXTREME;
             break;
         case R.id.encode_btn:
-            if (inputFilename.getText().length() > 0
+            if (!isEncodeMode) {
+                DialogHelper.showWarning(Main.this, R.string.decode_unavail_title, R.string.decode_unavail_warning);
+            }
+            else if (inputFilename.getText().length() > 0
                     && outputFilename.getText().length() > 0) {
                 String[] encodeParams = new String[] {
                         inputFilename.getText().toString(),

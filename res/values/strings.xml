@@ -25,6 +25,9 @@
 	<string name="lame_encode_start_msg">Encoding file to MP3</string>
 	<string name="lame_encode_end_msg">File encoded as MP3!</string>
 
+    <string name="decode_unavail_title">Error!</string>
+    <string name="decode_unavail_warning">Decode mode not available yet!</string>
+
     <string name="no_encode_files_title">Error!</string>
     <string name="no_encode_files_warning">Source and/or destination file paths missing!</string>
 
