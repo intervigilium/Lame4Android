@@ -1,14 +1,24 @@
 This project requires:
 Android SDK
 Android NDK
+liblame
 
 This project does not contain the shared libraries for LAME.
+
 In order to build them, you must first install the Android NDK from:
 http://developer.android.com/sdk/ndk/index.html
 Installing the Android NDK is beyond the scope of this INSTALL file.
 
-Then you must go to the project top level and issue the command:
+LAME shared libraries are contained in the liblame project, available at my
+github here: http://github.com/intervigilium/liblame
+
+This project will need to set up liblame as a referenced library project.
+For more information on how to do this, please consult the Android
+documentation and developer resources.
+
+To build the libraries you must go to /path/to/liblame and issue the command:
 /path/to/ndk-build 
-to build the libraries.
+
 The NDK builder will compile the shared libraries and place them in the 
-Lame4Android/libs directory.
+liblame/libs directory where the builder for Lame4Android can find them
+and include them in the final apk.
