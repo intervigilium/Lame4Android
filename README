@@ -1,15 +1,15 @@
-This Android application is bascially a wrapper around the command-line LAME
-interface. It will encode/decode mp3 files. 
+This Android application is an Android interface to the liblame project
+that contains LAME libraries. Using liblame, this app can encode
+and decode MP3 files to/from WAV files.
 This project is licensed under LGPLv2, for further licensing information see
 the LICENSE file.
 
 Build Instructions:
-Import project into Eclipse, since I have not created Ant makefiles for this
-project. For help building the native LAME library, please consult the INSTALL
-file.
+Please consult the INSTALL file for instructions on setting up liblame with
+this project.
 
 Known Issues:
-
+Cannot decode to WAVE files yet
 
 This project uses LAME from http://lame.sourceforge.net/
 by the LAME Project team.
