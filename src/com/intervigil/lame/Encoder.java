@@ -26,6 +26,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import net.sourceforge.lame.Lame;
+
 import com.intervigil.wave.WaveReader;
 
 public class Encoder {

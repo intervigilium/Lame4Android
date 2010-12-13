@@ -26,6 +26,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import net.sourceforge.lame.Lame;
+
 import com.intervigil.wave.WaveWriter;
 
 public class Decoder {
