@@ -23,7 +23,6 @@ package com.intervigil.lame;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.sourceforge.lame.Lame;
@@ -44,17 +43,30 @@ public class Decoder {
         this.outFile = outFile;
     }
 
-    public void initialize() throws FileNotFoundException, IOException {
+    public void initialize() throws IOException {
         waveWriter = new WaveWriter(outFile, 44100, 2, 16);
         waveWriter.createWaveFile();
         in = new BufferedInputStream(new FileInputStream(inFile),
                 INPUT_STREAM_BUFFER);
         Lame.initDecoder();
+        Lame.configDecoder(in);
     }
 
-    public void decode() {
+    public void decode() throws IOException {
         if (waveWriter != null && in != null) {
+            int len, samplesRead;
+            short[] leftBuffer = new short[MP3_BUFFER_SIZE];
+            short[] rightBuffer = new short[MP3_BUFFER_SIZE];
+            byte[] buf = new byte[MP3_BUFFER_SIZE * 4];
 
+            do {
+                len = in.read(buf);
+                if (len > 0) {
+                    samplesRead = Lame.decodeMp3(buf, len, leftBuffer, rightBuffer);
+                    // only write the left buffer until I figure out everything else
+                    waveWriter.write(leftBuffer, samplesRead);
+                }
+            } while (len > -1);
         }
     }
 
