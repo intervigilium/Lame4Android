@@ -39,9 +39,9 @@ public class Decoder {
 
     private BufferedInputStream in;
 
-    public Decoder(File in, File out) {
-        this.inFile = in;
-        this.outFile = out;
+    public Decoder(File inFile, File outFile) {
+        this.inFile = inFile;
+        this.outFile = outFile;
     }
 
     public void initialize() throws FileNotFoundException, IOException {
