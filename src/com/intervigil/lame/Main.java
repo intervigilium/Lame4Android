@@ -376,4 +376,74 @@ public class Main extends Activity implements OnClickListener {
             }
         }
     }
+
+    /**
+     * Process LAME decode task
+     */
+    private class LameDecodeTask extends AsyncTask<String, Void, Void> {
+        private File input;
+        private File output;
+        private Decoder lame;
+        private ProgressDialog spinner;
+        private int errorCode;
+
+        public LameDecodeTask() {
+            spinner = new ProgressDialog(Main.this);
+            spinner.setCancelable(false);
+            errorCode = 0;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            spinner.setMessage(getString(R.string.lame_decode_start_msg));
+            spinner.show();
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            input = new File(params[0]);
+            output = new File(params[1]);
+            lame = new Decoder(input, output);
+
+            try {
+                lame.initialize();
+            } catch (IOException e) {
+                // input is not an mp3 file or could not create file
+                errorCode = Constants.LAME_ERROR_INIT_DECODER;
+            }
+            if (errorCode == 0) {
+                try {
+                    lame.decode();
+                } catch (IOException e) {
+                    // failed to read pcm data/failed to write mp3 data
+                    errorCode = Constants.LAME_ERROR_DECODE_IO;
+                }
+            }
+
+            lame.cleanup();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            spinner.dismiss();
+            switch (errorCode) {
+            case 0:
+                Toast.makeText(Main.this, R.string.lame_decode_end_msg,
+                        Toast.LENGTH_SHORT).show();
+                break;
+            case Constants.LAME_ERROR_INIT_DECODER:
+                DialogHelper.showWarning(Main.this,
+                        R.string.lame_decode_error_init_decoder_title,
+                        R.string.lame_decode_error_init_decoder_msg);
+                break;
+            case Constants.LAME_ERROR_DECODE_IO:
+                DialogHelper.showWarning(Main.this,
+                        R.string.lame_decode_error_decode_io_title,
+                        R.string.lame_decode_error_decode_io_msg);
+                break;
+            default:
+            }
+        }
+    }
 }

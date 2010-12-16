@@ -29,4 +29,6 @@ public class Constants {
     public static final int LAME_ERROR_FILE_CREATE = -3;
     public static final int LAME_ERROR_FILE_TYPE = -4;
     public static final int LAME_ERROR_ENCODE_IO = -5;
+    public static final int LAME_ERROR_DECODE_IO = -6;
+    public static final int LAME_ERROR_INIT_DECODER = -7;
 }
