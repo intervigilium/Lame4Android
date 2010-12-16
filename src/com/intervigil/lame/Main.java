@@ -25,7 +25,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import net.sourceforge.lame.Lame;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
@@ -216,15 +215,16 @@ public class Main extends Activity implements OnClickListener {
             lamePreset = Lame.LAME_PRESET_EXTREME;
             break;
         case R.id.encode_btn:
-            if (!isEncodeMode) {
-                DialogHelper.showWarning(Main.this, R.string.decode_unavail_title, R.string.decode_unavail_warning);
-            }
-            else if (inputFilename.getText().length() > 0
-                    && outputFilename.getText().length() > 0) {
-                String[] encodeParams = new String[] {
+            if (inputFilename.getText().length() > 0 &&
+                    outputFilename.getText().length() > 0) {
+                String[] params = new String[] {
                         inputFilename.getText().toString(),
                         outputFilename.getText().toString() };
-                new LameEncodeTask().execute(encodeParams);
+                if (isEncodeMode) {
+                    new LameEncodeTask().execute(params);
+                } else {
+                    new LameDecodeTask().execute(params);
+                }
             } else {
                 DialogHelper.showWarning(Main.this, R.string.no_encode_files_title, R.string.no_encode_files_warning);
             }
