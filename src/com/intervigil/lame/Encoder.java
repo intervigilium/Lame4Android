@@ -67,7 +67,7 @@ public class Encoder {
             int bytesEncoded;
 
             while (true) {
-                samplesRead = waveReader.readShort(pcmBuf, WAVE_CHUNK_SIZE);
+                samplesRead = waveReader.read(pcmBuf, WAVE_CHUNK_SIZE);
                 if (samplesRead > 0) {
                     bytesEncoded = Lame.encodeShortBuffer(pcmBuf, pcmBuf,
                             samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
