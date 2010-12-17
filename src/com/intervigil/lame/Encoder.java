@@ -50,7 +50,7 @@ public class Encoder {
         out = new BufferedOutputStream(new FileOutputStream(outFile),
                 OUTPUT_STREAM_BUFFER);
         Lame.initializeLame(waveReader.getSampleRate(),
-                Constants.LAME_CONFIG_STEREO);
+                waveReader.getChannels());
     }
 
     public void setPreset(int preset) {
@@ -61,19 +61,31 @@ public class Encoder {
 
     public void encode() throws IOException {
         if (waveReader != null && out != null) {
-            short[] pcmBuf = new short[WAVE_CHUNK_SIZE];
+            short[] left = new short[WAVE_CHUNK_SIZE];
+            short[] right = new short[WAVE_CHUNK_SIZE];
             byte[] mp3Buf = new byte[OUTPUT_STREAM_BUFFER];
             int samplesRead;
             int bytesEncoded;
 
             while (true) {
-                samplesRead = waveReader.read(pcmBuf, WAVE_CHUNK_SIZE);
-                if (samplesRead > 0) {
-                    bytesEncoded = Lame.encodeShortBuffer(pcmBuf, pcmBuf,
-                            samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
-                    out.write(mp3Buf, 0, bytesEncoded);
+                if (waveReader.getChannels() == 2) {
+                    samplesRead = waveReader.read(left, right, WAVE_CHUNK_SIZE);
+                    if (samplesRead > 0) {
+                        bytesEncoded = Lame.encodeShortBuffer(left, right,
+                                samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
+                        out.write(mp3Buf, 0, bytesEncoded);
+                    } else {
+                        break;
+                    }
                 } else {
-                    break;
+                    samplesRead = waveReader.read(left, WAVE_CHUNK_SIZE);
+                    if (samplesRead > 0) {
+                        bytesEncoded = Lame.encodeShortBuffer(left, left,
+                                samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
+                        out.write(mp3Buf, 0, bytesEncoded);
+                    } else {
+                        break;
+                    }
                 }
             }
             bytesEncoded = Lame.encodeFlushBuffers(mp3Buf, mp3Buf.length);
