@@ -30,7 +30,8 @@ import net.sourceforge.lame.Lame;
 import com.intervigil.wave.WaveWriter;
 
 public class Decoder {
-    private static final int MP3_BUFFER_SIZE = 1152;
+    private static final int MP3_BUFFER_SIZE = 1024;
+    private static final int PCM_BUFFER_SIZE = 1152;
     private static final int INPUT_STREAM_BUFFER = 8192;
     private WaveWriter waveWriter;
     private File inFile;
@@ -44,27 +45,31 @@ public class Decoder {
     }
 
     public void initialize() throws IOException {
-        waveWriter = new WaveWriter(outFile, 44100, 2, 16);
-        waveWriter.createWaveFile();
         in = new BufferedInputStream(new FileInputStream(inFile),
                 INPUT_STREAM_BUFFER);
         Lame.initDecoder();
         Lame.configDecoder(in);
+
+        waveWriter = new WaveWriter(outFile, Lame.getDecoderSampleRate(), Lame.getDecoderChannels(), 16);
+        waveWriter.createWaveFile();
     }
 
     public void decode() throws IOException {
         if (waveWriter != null && in != null) {
             int len, samplesRead;
-            short[] leftBuffer = new short[MP3_BUFFER_SIZE];
-            short[] rightBuffer = new short[MP3_BUFFER_SIZE];
-            byte[] buf = new byte[MP3_BUFFER_SIZE * 4];
+            short[] leftBuffer = new short[PCM_BUFFER_SIZE];
+            short[] rightBuffer = new short[PCM_BUFFER_SIZE];
+            byte[] buf = new byte[MP3_BUFFER_SIZE];
 
             do {
                 len = in.read(buf);
                 if (len > 0) {
                     samplesRead = Lame.decodeMp3(buf, len, leftBuffer, rightBuffer);
-                    // only write the left buffer until I figure out everything else
-                    waveWriter.write(leftBuffer, samplesRead);
+                    if (Lame.getDecoderChannels() == 2) {
+                        waveWriter.write(leftBuffer, rightBuffer, samplesRead);
+                    } else {
+                        waveWriter.write(leftBuffer, samplesRead);
+                    }
                 }
             } while (len > -1);
         }
