@@ -8,7 +8,7 @@
 	<com.admob.android.ads.AdView android:id="@+id/main_adview"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		admobsdk:backgroundColor="#000000" admobsdk:primaryTextColor="#FFFFFF"
-		admobsdk:keywords="android music mp3 tunes" />
+		admobsdk:keywords="android music mp3 tunes audio sound" />
 
 	<TextView android:id="@+id/input_label" android:text="@string/input_file_label"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" />
