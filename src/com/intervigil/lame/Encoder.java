@@ -49,13 +49,13 @@ public class Encoder {
         waveReader.openWave();
         out = new BufferedOutputStream(new FileOutputStream(outFile),
                 OUTPUT_STREAM_BUFFER);
-        Lame.initializeLame(waveReader.getSampleRate(),
+        Lame.initializeEncoder(waveReader.getSampleRate(),
                 waveReader.getChannels());
     }
 
     public void setPreset(int preset) {
         if (waveReader != null && out != null) {
-            Lame.setLamePreset(preset);
+            Lame.setEncoderPreset(preset);
         }
     }
 
@@ -71,7 +71,7 @@ public class Encoder {
                 if (waveReader.getChannels() == 2) {
                     samplesRead = waveReader.read(left, right, WAVE_CHUNK_SIZE);
                     if (samplesRead > 0) {
-                        bytesEncoded = Lame.encodeShortBuffer(left, right,
+                        bytesEncoded = Lame.encode(left, right,
                                 samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
                         out.write(mp3Buf, 0, bytesEncoded);
                     } else {
@@ -80,7 +80,7 @@ public class Encoder {
                 } else {
                     samplesRead = waveReader.read(left, WAVE_CHUNK_SIZE);
                     if (samplesRead > 0) {
-                        bytesEncoded = Lame.encodeShortBuffer(left, left,
+                        bytesEncoded = Lame.encode(left, left,
                                 samplesRead, mp3Buf, OUTPUT_STREAM_BUFFER);
                         out.write(mp3Buf, 0, bytesEncoded);
                     } else {
@@ -88,7 +88,7 @@ public class Encoder {
                     }
                 }
             }
-            bytesEncoded = Lame.encodeFlushBuffers(mp3Buf, mp3Buf.length);
+            bytesEncoded = Lame.flushEncoder(mp3Buf, mp3Buf.length);
             out.write(mp3Buf, 0, bytesEncoded);
             // TODO: write Xing VBR/INFO tag to mp3 file here
             out.flush();
@@ -108,6 +108,6 @@ public class Encoder {
             // TODO: actually handle an error here
             e.printStackTrace();
         }
-        Lame.closeLame();
+        Lame.closeEncoder();
     }
 }

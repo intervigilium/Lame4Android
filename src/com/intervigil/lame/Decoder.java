@@ -55,8 +55,8 @@ public class Decoder {
 
     private static int lameInitialize(BufferedInputStream in) throws IOException {
         int ret = 0;
-        ret = Lame.initDecoder();
-        ret = Lame.configDecoder(in);
+        ret = Lame.initializeDecoder();
+        ret = Lame.configureDecoder(in);
         return ret;
     }
 
@@ -67,7 +67,7 @@ public class Decoder {
             short[] rightBuffer = new short[PCM_BUFFER_SIZE];
 
             do {
-                samplesRead = lameDecodeFrame(in, leftBuffer, rightBuffer);
+                samplesRead = Lame.decodeFrame(in, leftBuffer, rightBuffer);
                 if (Lame.getDecoderChannels() == 2) {
                     waveWriter.write(leftBuffer, rightBuffer, samplesRead);
                 } else {
