@@ -145,10 +145,12 @@ public class Main extends Activity implements OnClickListener {
             startActivity(preferencesIntent);
             break;
         case R.id.help:
-
+            DialogHelper.showWarning(Main.this, R.string.help_title,
+                    R.string.help_text);
             break;
         case R.id.about:
-
+            DialogHelper.showWarning(Main.this, R.string.about_title,
+                    R.string.about_text);
             break;
         case R.id.quit:
             finish();

@@ -59,4 +59,94 @@
 		developer!</string>
 	<string name="prefs_enable_ads_title">Enable Mobile Ads</string>
 	<string name="prefs_enable_ads_default">true</string>
+
+	<string name="about_title">About Lame4Android Version 0.03</string>
+	<string name="about_text">
+		Lame4Android is licensed under the LGPL\n\
+		\n\
+		Copyright (c) 2010 Ethan Chen\n\
+		http://github.com/intervigilium/Lame4Android\n\
+		\n\
+		This library is free software; you can redistribute it and/or\n\
+		modify it under the terms of the GNU Lesser General Public\n\
+		License as published by the Free Software Foundation; either\n\
+		version 2 of the License, or (at your option) any later version.\n\
+		\n\
+		This library is distributed in the hope that it will be useful,\n\
+		but WITHOUT ANY WARRANTY; without even the implied warranty of\n\
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n\
+		Lesser General Public License for more details.\n\
+		\n\
+		You should have received a copy of the GNU Lesser General Public\n\
+		License along with this library; if not, write to the Free Software\n\
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n\
+		\n\
+		\n\
+		LAME is licensed under LGPL\n\
+		Copyright (c) 1999-2007 The LAME Project\n\
+		Copyright (c) 1999-2001 Mark Taylor\n\
+		Copyright (c) 1998 Micheal Cheng\n\
+		\n\
+		This library is free software; you can redistribute it and/or\n\
+		modify it under the terms of the GNU Lesser General Public\n\
+		License as published by the Free Software Foundation; either\n\
+		version 2 of the License, or (at your option) any later version.\n\
+		\n\
+		This library is distributed in the hope that it will be useful,\n\
+		but WITHOUT ANY WARRANTY; without even the implied warranty of\n\
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n\
+		Lesser General Public License for more details.\n\
+		\n\
+		You should have received a copy of the GNU Lesser General Public\n\
+		License along with this library; if not, write to the Free Software\n\
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n\
+		\n\
+		\n\
+		mpglib is licensed under the LGPL\n\
+		Copyright (c) 1995-1997 Michael Hipp\n\
+		\n\
+		This library is free software; you can redistribute it and/or\n\
+		modify it under the terms of the GNU Lesser General Public\n\
+		License as published by the Free Software Foundation; either\n\
+		version 2 of the License, or (at your option) any later version.\n\
+		\n\
+		This library is distributed in the hope that it will be useful,\n\
+		but WITHOUT ANY WARRANTY; without even the implied warranty of\n\
+		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n\
+		Lesser General Public License for more details.\n\
+		\n\
+		You should have received a copy of the GNU Lesser General Public\n\
+		License along with this library; if not, write to the Free Software\n\
+		Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA\n\
+		\n\
+		\n\
+		Android icons and logos are licensed under the Creative Commons 3.0
+		Attribution License\n\
+		\n\
+		Portions of this page are modifications based on work created and shared by
+		Google and used according to terms described in the Creative Commons
+		3.0 Attribution License.\n\
+		\n\
+		License terms available at: http://creativecommons.org/licenses/by/3.0/\n\
+	</string>
+
+	<string name="help_title">How to Use</string>
+	<string name="help_text">How to Encode and Decode\n\
+		OpenIntents FileManager, or any similar file manager is required\n\
+		1. Press button to right of source text field to select input\n\
+		2. Press button to right of destination text field to select output\n\
+		3. Select encode or decode mode using toggle button\n\
+		4. Select encode/decode options if necessary\n\
+		5. Press the Encode or Decode button to begin\n\
+		\n\
+		Problems Encoding or Decoding?\n\
+		1. Make sure you have sufficient space available on your sdcard\n\
+		2. Make sure you are attempting to decode/encode a supported file type\n\
+		3. Try re-installing the application\n\
+		4. Send me an email with your problems/questions\n\
+		\n\
+		Supported File Types\n\
+		Encoding: WAVE input only (.wav extension)\n\
+		Decoding: MP3 input only (.mp3 extension)\n\
+	</string>
 </resources>
