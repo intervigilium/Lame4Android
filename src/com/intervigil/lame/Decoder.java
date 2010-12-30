@@ -47,32 +47,59 @@ public class Decoder {
     public void initialize() throws IOException {
         in = new BufferedInputStream(new FileInputStream(inFile),
                 INPUT_STREAM_BUFFER);
-        Lame.initDecoder();
-        Lame.configDecoder(in);
+        lameInitialize(in);
 
         waveWriter = new WaveWriter(outFile, Lame.getDecoderSampleRate(), Lame.getDecoderChannels(), 16);
         waveWriter.createWaveFile();
     }
 
+    private static int lameInitialize(BufferedInputStream in) throws IOException {
+        int ret = 0;
+        ret = Lame.initDecoder();
+        ret = Lame.configDecoder(in);
+        return ret;
+    }
+
     public void decode() throws IOException {
         if (waveWriter != null && in != null) {
-            int len, samplesRead;
+            int samplesRead = 0;
             short[] leftBuffer = new short[PCM_BUFFER_SIZE];
             short[] rightBuffer = new short[PCM_BUFFER_SIZE];
-            byte[] buf = new byte[MP3_BUFFER_SIZE];
 
             do {
-                len = in.read(buf);
-                if (len > 0) {
-                    samplesRead = Lame.decodeMp3(buf, len, leftBuffer, rightBuffer);
-                    if (Lame.getDecoderChannels() == 2) {
-                        waveWriter.write(leftBuffer, rightBuffer, samplesRead);
-                    } else {
-                        waveWriter.write(leftBuffer, samplesRead);
-                    }
+                samplesRead = lameDecodeFrame(in, leftBuffer, rightBuffer);
+                if (Lame.getDecoderChannels() == 2) {
+                    waveWriter.write(leftBuffer, rightBuffer, samplesRead);
+                } else {
+                    waveWriter.write(leftBuffer, samplesRead);
                 }
-            } while (len > -1);
+            } while (samplesRead > 0);
         }
+    }
+
+    private static int lameDecodeFrame(BufferedInputStream in, short[] left, short[] right) throws IOException {
+        int len = 0;
+        int samplesRead = 0;
+        byte[] buf = new byte[MP3_BUFFER_SIZE];
+
+        samplesRead = Lame.decodeMp3(buf, len, left, right);
+        if (samplesRead != 0) {
+            return samplesRead;
+        }
+
+        while (true) {
+            len = in.read(buf);
+            if (len == -1) {
+                // finished reading file, check for buffered data
+                samplesRead = Lame.decodeMp3(buf, len, left, right);
+                break;
+            }
+            samplesRead = Lame.decodeMp3(buf, len, left, right);
+            if (samplesRead > 0) {
+                break;
+            }
+        }
+        return samplesRead;
     }
 
     public void cleanup() {
