@@ -30,7 +30,6 @@ import net.sourceforge.lame.Lame;
 import com.intervigil.wave.WaveWriter;
 
 public class Decoder {
-    private static final int MP3_BUFFER_SIZE = 1024;
     private static final int PCM_BUFFER_SIZE = 1152;
     private static final int INPUT_STREAM_BUFFER = 8192;
     private WaveWriter waveWriter;
@@ -75,31 +74,6 @@ public class Decoder {
                 }
             } while (samplesRead > 0);
         }
-    }
-
-    private static int lameDecodeFrame(BufferedInputStream in, short[] left, short[] right) throws IOException {
-        int len = 0;
-        int samplesRead = 0;
-        byte[] buf = new byte[MP3_BUFFER_SIZE];
-
-        samplesRead = Lame.decodeMp3(buf, len, left, right);
-        if (samplesRead != 0) {
-            return samplesRead;
-        }
-
-        while (true) {
-            len = in.read(buf);
-            if (len == -1) {
-                // finished reading file, check for buffered data
-                samplesRead = Lame.decodeMp3(buf, len, left, right);
-                break;
-            }
-            samplesRead = Lame.decodeMp3(buf, len, left, right);
-            if (samplesRead > 0) {
-                break;
-            }
-        }
-        return samplesRead;
     }
 
     public void cleanup() {
