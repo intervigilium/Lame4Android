@@ -7,10 +7,10 @@
 	<string name="encode_btn_label">Encode to MP3</string>
 	<string name="decode_btn_label">Decode to Wave</string>
 
-	<string name="open_input_file_title">Select File to Encode</string>
+	<string name="open_input_file_title">Select Input File</string>
 	<string name="open_input_file_btn_text">Select File</string>
 
-	<string name="save_output_file_title">Select File to Save As</string>
+	<string name="save_output_file_title">Select Output File</string>
 	<string name="save_output_file_btn_text">Save As</string>
 
 	<string name="mode_btn_on_label">Encode Mode</string>
