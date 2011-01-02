@@ -60,7 +60,7 @@
 	<string name="prefs_enable_ads_title">Enable Mobile Ads</string>
 	<string name="prefs_enable_ads_default">true</string>
 
-	<string name="about_title">About Lame4Android Version 0.03</string>
+	<string name="about_title">About Lame4Android Version 0.04</string>
 	<string name="about_text">
 		Lame4Android is licensed under the LGPL\n\
 		\n\
