@@ -8,4 +8,6 @@ market/*
 *.iws
 *.ipr
 *.iml
+*.wav
+*.mp3
 local.properties
