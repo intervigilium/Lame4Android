@@ -30,8 +30,10 @@ import net.sourceforge.lame.Lame;
 import com.intervigil.wave.WaveWriter;
 
 public class Decoder {
-    private static final int PCM_BUFFER_SIZE = 1152;
+    private static final int DEFAULT_FRAME_SIZE = 1152;
     private static final int INPUT_STREAM_BUFFER = 8192;
+    private static final int MP3_SAMPLE_DELAY = 528;
+    private static final int MP3_ENCODER_DELAY = 576;
     private WaveWriter waveWriter;
     private File inFile;
     private File outFile;
@@ -61,18 +63,49 @@ public class Decoder {
 
     public void decode() throws IOException {
         if (waveWriter != null && in != null) {
-            int samplesRead = 0;
-            short[] leftBuffer = new short[PCM_BUFFER_SIZE];
-            short[] rightBuffer = new short[PCM_BUFFER_SIZE];
+            int samplesRead = 0, offset = 0;
+            int skip_start = 0, skip_end = 0;
+            int delay = Lame.getDecoderDelay();
+            int padding = Lame.getDecoderPadding();
+            int frameSize = Lame.getDecoderFrameSize();
+            int totalFrames = Lame.getDecoderTotalFrames();
+            int frame = 0;
+            short[] leftBuffer = new short[DEFAULT_FRAME_SIZE];
+            short[] rightBuffer = new short[DEFAULT_FRAME_SIZE];
 
-            do {
-                samplesRead = Lame.decodeFrame(in, leftBuffer, rightBuffer);
-                if (Lame.getDecoderChannels() == 2) {
-                    waveWriter.write(leftBuffer, rightBuffer, samplesRead);
-                } else {
-                    waveWriter.write(leftBuffer, samplesRead);
+            if (delay > -1 || padding > -1) {
+                if (delay > -1) {
+                    skip_start = delay + (MP3_SAMPLE_DELAY + 1);
                 }
-            } while (samplesRead > 0);
+                if (padding > -1) {
+                    skip_end = padding - (MP3_SAMPLE_DELAY + 1);
+                }
+            } else {
+                skip_start = MP3_ENCODER_DELAY + (MP3_SAMPLE_DELAY + 1);
+            }
+
+            while (true) {
+                samplesRead = Lame.decodeFrame(in, leftBuffer, rightBuffer);
+                offset = skip_start < samplesRead ? skip_start : samplesRead;
+                skip_start -= offset;
+                frame += samplesRead / frameSize;
+                if (samplesRead >= 0) {
+                    if (skip_end > DEFAULT_FRAME_SIZE && frame + 2 > totalFrames) {
+                        samplesRead -= (skip_end - DEFAULT_FRAME_SIZE);
+                        skip_end = DEFAULT_FRAME_SIZE;
+                    } else if (frame == totalFrames && samplesRead == 0) {
+                        samplesRead -= skip_end;
+                    }
+
+                    if (Lame.getDecoderChannels() == 2) {
+                        waveWriter.write(leftBuffer, rightBuffer, offset, samplesRead);
+                    } else {
+                        waveWriter.write(leftBuffer, offset, samplesRead);
+                    }
+                } else {
+                    break;
+                }
+            }
         }
     }
 
