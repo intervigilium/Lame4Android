@@ -139,22 +139,22 @@ public class Main extends Activity implements OnClickListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-        case R.id.options:
-            Intent preferencesIntent = new Intent(getBaseContext(),
-                    Preferences.class);
-            startActivity(preferencesIntent);
-            break;
-        case R.id.help:
-            DialogHelper.showWarning(Main.this, R.string.help_title,
-                    R.string.help_text);
-            break;
-        case R.id.about:
-            DialogHelper.showWarning(Main.this, R.string.about_title,
-                    R.string.about_text);
-            break;
-        case R.id.quit:
-            finish();
-            break;
+            case R.id.options:
+                Intent preferencesIntent = new Intent(getBaseContext(),
+                        Preferences.class);
+                startActivity(preferencesIntent);
+                break;
+            case R.id.help:
+                DialogHelper.showWarning(Main.this, R.string.help_title,
+                        R.string.help_text);
+                break;
+            case R.id.about:
+                DialogHelper.showWarning(Main.this, R.string.about_title,
+                        R.string.about_text);
+                break;
+            case R.id.quit:
+                finish();
+                break;
         }
         return true;
     }
@@ -164,79 +164,79 @@ public class Main extends Activity implements OnClickListener {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-        case Constants.REQUEST_CODE_OPEN_FILE:
-            if (resultCode == RESULT_OK && data != null) {
-                // obtain the filename
-                String filename = data.getDataString();
-                if (filename != null) {
-                    // Get rid of URI prefix:
-                    if (filename.startsWith("file://")) {
-                        filename = filename.substring(7);
+            case Constants.REQUEST_CODE_OPEN_FILE:
+                if (resultCode == RESULT_OK && data != null) {
+                    // obtain the filename
+                    String filename = data.getDataString();
+                    if (filename != null) {
+                        // Get rid of URI prefix:
+                        if (filename.startsWith("file://")) {
+                            filename = filename.substring(7);
+                        }
+                        inputFilename.setText(filename);
                     }
-                    inputFilename.setText(filename);
                 }
-            }
-            break;
-        case Constants.REQUEST_CODE_SAVE_FILE:
-            if (resultCode == RESULT_OK && data != null) {
-                // obtain the filename
-                String filename = data.getDataString();
-                if (filename != null) {
-                    // Get rid of URI prefix:
-                    if (filename.startsWith("file://")) {
-                        filename = filename.substring(7);
+                break;
+            case Constants.REQUEST_CODE_SAVE_FILE:
+                if (resultCode == RESULT_OK && data != null) {
+                    // obtain the filename
+                    String filename = data.getDataString();
+                    if (filename != null) {
+                        // Get rid of URI prefix:
+                        if (filename.startsWith("file://")) {
+                            filename = filename.substring(7);
+                        }
+                        outputFilename.setText(filename);
                     }
-                    outputFilename.setText(filename);
                 }
-            }
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
         }
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-        case R.id.mode_btn:
-            isEncodeMode = !isEncodeMode;
-            setRadioGroupEnabled(isEncodeMode);
-            if (isEncodeMode) {
-                encodeButton.setText(R.string.encode_btn_label);
-            } else {
-                encodeButton.setText(R.string.decode_btn_label);
-            }
-            break;
-        case R.id.radio_medium:
-            lamePreset = Lame.LAME_PRESET_MEDIUM;
-            break;
-        case R.id.radio_standard:
-            lamePreset = Lame.LAME_PRESET_STANDARD;
-            break;
-        case R.id.radio_extreme:
-            lamePreset = Lame.LAME_PRESET_EXTREME;
-            break;
-        case R.id.encode_btn:
-            if (inputFilename.getText().length() > 0 &&
-                    outputFilename.getText().length() > 0) {
-                String[] params = new String[] {
-                        inputFilename.getText().toString(),
-                        outputFilename.getText().toString() };
+            case R.id.mode_btn:
+                isEncodeMode = !isEncodeMode;
+                setRadioGroupEnabled(isEncodeMode);
                 if (isEncodeMode) {
-                    new LameEncodeTask().execute(params);
+                    encodeButton.setText(R.string.encode_btn_label);
                 } else {
-                    new LameDecodeTask().execute(params);
+                    encodeButton.setText(R.string.decode_btn_label);
                 }
-            } else {
-                DialogHelper.showWarning(Main.this, R.string.no_encode_files_title, R.string.no_encode_files_warning);
-            }
-            break;
-        case R.id.select_input_file_btn:
-            openFile(inputFilename.getText().toString());
-            break;
-        case R.id.select_output_file_btn:
-            saveFile(outputFilename.getText().toString());
-            break;
+                break;
+            case R.id.radio_medium:
+                lamePreset = Lame.LAME_PRESET_MEDIUM;
+                break;
+            case R.id.radio_standard:
+                lamePreset = Lame.LAME_PRESET_STANDARD;
+                break;
+            case R.id.radio_extreme:
+                lamePreset = Lame.LAME_PRESET_EXTREME;
+                break;
+            case R.id.encode_btn:
+                if (inputFilename.getText().length() > 0 &&
+                        outputFilename.getText().length() > 0) {
+                    String[] params = new String[] {
+                            inputFilename.getText().toString(),
+                            outputFilename.getText().toString() };
+                    if (isEncodeMode) {
+                        new LameEncodeTask().execute(params);
+                    } else {
+                        new LameDecodeTask().execute(params);
+                    }
+                } else {
+                    DialogHelper.showWarning(Main.this, R.string.no_encode_files_title, R.string.no_encode_files_warning);
+                }
+                break;
+            case R.id.select_input_file_btn:
+                openFile(inputFilename.getText().toString());
+                break;
+            case R.id.select_output_file_btn:
+                saveFile(outputFilename.getText().toString());
+                break;
         }
 
     }
