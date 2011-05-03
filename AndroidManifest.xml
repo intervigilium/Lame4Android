@@ -5,6 +5,7 @@
 
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 	<uses-sdk android:minSdkVersion="7" />
 
@@ -20,16 +21,8 @@
 			android:name=".Preferences" />
 
 		<!-- AdMobActivity definition -->
-		<activity android:name="com.admob.android.ads.AdMobActivity"
-			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+		<activity android:name="com.google.ads.AdMobActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden" />
-
-		<!-- Track Market Installs -->
-		<receiver android:name="com.admob.android.ads.analytics.InstallReceiver" android:exported="true">
-			<intent-filter>
-				<action android:name="com.android.vending.INSTALL_REFERRER" />
-			</intent-filter>
-		</receiver>
 
 		<meta-data android:value="a14cc4c75fa8625" android:name="ADMOB_PUBLISHER_ID" />
 

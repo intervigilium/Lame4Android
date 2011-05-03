@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:admobsdk="http://schemas.android.com/apk/res/com.intervigil.lame"
+	xmlns:ads="http://schemas.android.com/apk/res/com.intervigil.lame"
 	android:id="@+id/main_layout" android:orientation="vertical"
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
 
-	<com.admob.android.ads.AdView android:id="@+id/main_adview"
+	<com.google.ads.AdView android:id="@+id/main_adview"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		admobsdk:backgroundColor="#000000" admobsdk:primaryTextColor="#FFFFFF"
-		admobsdk:keywords="android music mp3 tunes audio sound" />
+		ads:adUnitId="a14cc4c75fa8625" ads:adSize="BANNER" />
 
 	<TextView android:id="@+id/input_label" android:text="@string/input_file_label"
 		android:layout_width="fill_parent" android:layout_height="wrap_content" />

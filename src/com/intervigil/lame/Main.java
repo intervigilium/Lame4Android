@@ -45,14 +45,14 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.admob.android.ads.AdView;
+import com.google.ads.AdView;
+import com.intervigil.lame.helper.AdHelper;
 import com.intervigil.lame.helper.DialogHelper;
 import com.intervigil.lame.helper.PreferenceHelper;
 import com.intervigil.lame.intents.FileManagerIntents;
 
 public class Main extends Activity implements OnClickListener {
 
-    private Boolean showAds;
     private AdView ad;
     private EditText inputFilename;
     private EditText outputFilename;
@@ -69,9 +69,8 @@ public class Main extends Activity implements OnClickListener {
         lamePreset = Lame.LAME_PRESET_DEFAULT;
         isEncodeMode = false;
 
-        showAds = PreferenceHelper.getShowAds(Main.this);
         ad = (AdView) findViewById(R.id.main_adview);
-        ad.setEnabled(showAds);
+        AdHelper.GenerateAd(ad, PreferenceHelper.getShowAds(Main.this));
 
         inputFilename = (EditText) findViewById(R.id.input_file);
         outputFilename = (EditText) findViewById(R.id.output_file);
