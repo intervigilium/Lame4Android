@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.intervigil.lame" android:versionCode="4"
-	android:versionName="0.04" android:installLocation="auto">
+	package="com.intervigil.lame" android:versionCode="5"
+	android:versionName="0.05" android:installLocation="auto">
 
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.INTERNET" />
