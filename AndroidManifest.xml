@@ -24,7 +24,5 @@
 		<activity android:name="com.google.ads.AdMobActivity"
 			android:configChanges="orientation|keyboard|keyboardHidden" />
 
-		<meta-data android:value="a14cc4c75fa8625" android:name="ADMOB_PUBLISHER_ID" />
-
 	</application>
 </manifest>
